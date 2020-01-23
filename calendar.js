@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function(){
 
         //Задаем стили базовым элементам
         table.classList.add('table');
-        divBody.classList.add("col-sm-3", "mb-1");
+        divBody.classList.add("col-sm-4", "mb-1", "col-lg-3", "col-12");
         divCard.classList.add("card", "text-center");
         divCardHead.classList.add("card-header");
         divCardBody.classList.add("card-body", "p-0");   
@@ -91,11 +91,18 @@ document.addEventListener('DOMContentLoaded', function(){
                     *   если нет то пустыми ячейками заполняем 
                     */
                     if(getDay(firstDay) === k && firstDay.getMonth() === month-1){
-                        console.log(firstDay.getDate() +" = "+ getDay(firstDay));
-                        btn.classList.add("btn", "bnt-info", "btn-sm");
-                        btn.textContent = firstDay.getDate();
-                        td.appendChild(btn);
-
+                        //Текущий день зеленая кнопка
+                        if(now.getDate() === firstDay.getDate() && now.getMonth() === month-1){
+                            btn.classList.add("btn", "btn-success", "btn-sm", "btn-day");
+                        }else if(+now < +firstDay){
+                            //Будующие дни серая неактивная кнопка
+							btn.classList.add("btn", "btn-outline-dark", "btn-sm");
+							btn.disabled = true;
+						}else{
+                            //прошедшие дни зеленые активные кнопки
+                            btn.classList.add("btn", "btn-outline-success", "btn-sm", "btn-day");
+                        }
+                        btn.textContent = (firstDay.getDate()<10)?"0"+firstDay.getDate():firstDay.getDate();
                         // переводим на день вперед
                         firstDay.setDate(firstDay.getDate() + 1);
                     }else{
